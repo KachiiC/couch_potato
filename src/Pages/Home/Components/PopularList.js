@@ -1,8 +1,14 @@
 import React,{useState, useEffect} from 'react'
 
-const PopularShows = (props) => {
+const PopularList = (props) => {
 
-    const [List, setList] = useState([])
+    const [List, setList] = useState([
+        {
+            "imdb_id":"tt0320907",
+            "title": "Oasis",
+            "year": "2020"
+        }
+    ])
 
     const result = props.result
 
@@ -18,7 +24,12 @@ const PopularShows = (props) => {
         return response.json()
     })
     .then((list) => {
-        setList(list.tv_results)
+
+        if (result === `show`){
+            setList(list.tv_results)
+        }
+        setList(list.movie_results)
+        
     })
     .catch(err => {
         console.log(err);
@@ -44,4 +55,4 @@ const PopularShows = (props) => {
     )
 }
 
-export default PopularShows
+export default PopularList

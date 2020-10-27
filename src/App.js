@@ -11,7 +11,7 @@ import PageData from './Data/PagesData'
 const App = () => {
 
   const myLinks = PageData.map((page, index) =>(
-      <Route path={`/${page.page_path}`}>
+      <Route path={`/${page.page_path}`} key={index}>
           {page.page_display}
       </Route>
     )

@@ -5,6 +5,7 @@ import SiteNavbarData from '../../Data/SiteNavbarData'
 import './Navbar.css'
 import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+// Components
 
 const SiteNavbar = () => {
 
@@ -13,6 +14,7 @@ const SiteNavbar = () => {
     ))
 
     return (
+        
         <Navbar bg="dark" variant="dark" fixed="top">
             <div className="menu-section">
                 <Nav className="mr-auto">
@@ -28,11 +30,10 @@ const SiteNavbar = () => {
             </div>
             <div className="menu-section">
                 <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    <FormControl type="text" placeholder="Search here.." className="mr-sm-2" />
                     <Button variant="outline-info">Search</Button>
                 </Form>
             </div>
-
         </Navbar>
     )
 }

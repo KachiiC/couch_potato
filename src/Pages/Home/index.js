@@ -1,7 +1,11 @@
-import React from 'react'
+import React from 'react';
+import PopularShows from './Components/PopularShows'
 
-const Home = () => (
-    <h1>Home</h1>
-)
+const Home = () => {
+
+    return (
+        <PopularShows get="shows" />
+    )
+}
 
 export default Home

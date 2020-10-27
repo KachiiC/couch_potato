@@ -31,10 +31,8 @@ const TestPage = () => {
         <div className="site-row">
           { showModal && (
             <SiteModal closeModal={() => setShowModal(false)}>
-              <div className="site-modal-content">
                 <h2>{result.name}</h2>
                 <img src={result.url} alt={result.name} />
-              </div>
             </SiteModal>
           )}
           <div className="main-container">

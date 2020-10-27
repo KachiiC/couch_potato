@@ -1,10 +1,12 @@
 import React from "react";
-// Components
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
-// Data
-import PageData from './Data/PagesData'
 // CSS
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+// Components
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import SiteNavbar from "./Components/SiteNavbar";
+// Data
+import PageData from './Data/PagesData'
 
 const App = () => {
 
@@ -18,11 +20,12 @@ const App = () => {
   return (
 
     <Router>
-      <Switch>
-        <div className="App">
-          {myLinks}
-        </div>
-      </Switch>
+      <SiteNavbar />
+        <Switch>
+          <div className="App">
+            {myLinks}
+          </div>
+        </Switch>
     </Router>
   );
 }

@@ -4,6 +4,9 @@ import apiKey from 'Data/ApiKey'
 import RapidURL from 'Data/RapidURL'
 // Components
 import SiteModal from 'Components/SiteModal'
+import VideoEmbed from 'Components/VideoEmbedder'
+import ImageData from './ImageData'
+import DetailData from './DetailData'
 
 
 const HomeModalContent = (props) => {
@@ -50,13 +53,21 @@ const HomeModalContent = (props) => {
 
     },[itemId, entertainmentType])
 
+    // const genresList = detail.genres.map((genre, index) => (
+    //       <button className="genre-button" key={index}>{genre}</button>
+    //     )
+    // )
+
     return (
         <SiteModal closeModal={() => props.setShowModal(false)}>
-            <div>
-                <h2>{detail.title}</h2>
+            <div className="poster-container">
+                <img className="poster-image" src={itemPoster} alt="poster" />
+                <h3 className="rating-content">Rating: {detail.imdb_rating}</h3>
+            </div>
+            <div className="text-container">
+                <h4>{detail.title}</h4>
                 <p>{detail.description}</p>
-                <p>Rating: {detail.imdb_rating}</p>
-                <img src={itemPoster} alt="item-poster" />
+                <VideoEmbed video={detail.youtube_trailer_key} />
             </div>
         </SiteModal>
     )

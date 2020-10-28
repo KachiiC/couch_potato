@@ -8,12 +8,16 @@ const SiteModal = (props) => {
 
     return (
 
-        <div className="modal-overlay">
-            <div className="site-modal-content">
-                <div className="close-modal-button-container" onClick={closeModal}>
-                    <span className="close-modal-button">X</span>
+        <div className="site-modal-overlay">
+            <div className="site-display-modal">
+                <div className="site-modal-box">
+                    <div className="site-modal-content">
+                        <div className="site-displayed-content">
+                            {props.children}
+                        </div>
+                    </div>
+                    <div className="site-modal-close-button" onClick={closeModal}>X</div>     
                 </div>
-                {props.children}
             </div>
         </div>
     )

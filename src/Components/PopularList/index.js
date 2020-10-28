@@ -1,10 +1,12 @@
 import React,{useState, useEffect} from 'react'
 // Data
 import apiKey from 'Data/ApiKey';
+import ListData from './ListData'
 // CSS
 import './PopularList.css'
 
 const PopularList = (props) => {
+
     const [list, setList] = useState([])
 
     const entertainmentType = props.entertainmentType
@@ -41,18 +43,18 @@ const PopularList = (props) => {
         const changeVisibility = () => props.setShowModal(true)
 
         return (
-            <div key={index}>
-                <li>
-                    <h6 onClick={() => {changeVisibility();repop()}}>{watch.title}</h6>
+                <li key={index}>
+                    <h6 className="content-title"onClick={() => {changeVisibility();repop()}}>
+                        {watch.title}
+                    </h6>
                 </li>
-            </div>
         )
     })
 
     return (
         <>
         <div className="section-border">
-            <h3>{props.title}</h3>
+            <h3 className="content-title">{props.title}</h3>
             <ol>
                 {dislayShowsList}
             </ol>

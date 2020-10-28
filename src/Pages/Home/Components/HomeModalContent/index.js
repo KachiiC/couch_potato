@@ -2,16 +2,22 @@ import React,{useState, useEffect} from 'react'
 // Data
 import apiKey from 'Data/ApiKey'
 import RapidURL from 'Data/RapidURL'
+import ImageData from './ImageData'
+import DetailData from './DetailData'
 // Components
 import SiteModal from 'Components/SiteModal'
 import VideoEmbed from 'Components/VideoEmbedder'
-import ImageData from './ImageData'
-import DetailData from './DetailData'
 
 
 const HomeModalContent = (props) => {
     
-    const [detail, setDetail] = useState([]);
+    const [detail, setDetail] = useState({
+        "title": "",
+        "description": "", 
+        "genres": [""],
+        "stars":[""]
+        }
+    )
     const [itemPoster, setItemPoster] = useState("")
 
     const itemId = props.selectedItem.itemId
@@ -53,21 +59,35 @@ const HomeModalContent = (props) => {
 
     },[itemId, entertainmentType])
 
-    // const genresList = detail.genres.map((genre, index) => (
-    //       <button className="genre-button" key={index}>{genre}</button>
-    //     )
-    // )
+    const genresList = detail.genres.map((genre, index) => (
+          <button className="genre-button" key={index}>{genre}</button>
+        )
+    )
+
+    const charcterCount = detail.description.split("");
+
+    const displayedDescription = charcterCount.length > 230 ? 
+    charcterCount.slice(0,230).join("") + "..."
+    : detail.description
+
+    const displayActors = detail.stars.slice(0,2).join(", ") + " and " + detail.stars[3]
 
     return (
         <SiteModal closeModal={() => props.setShowModal(false)}>
             <div className="poster-container">
                 <img className="poster-image" src={itemPoster} alt="poster" />
-                <h3 className="rating-content">Rating: {detail.imdb_rating}</h3>
+                <h4 className="rating-content">IMDB Rating: {detail.imdb_rating}</h4>
             </div>
             <div className="text-container">
-                <h4>{detail.title}</h4>
-                <p>{detail.description}</p>
-                <VideoEmbed video={detail.youtube_trailer_key} />
+                <h4 className="site-modal-title">{detail.title}</h4>
+                <p className="site-modal-description">{displayedDescription}</p>
+                <div className="genre-buttons-container">{genresList}</div>
+                <div className="actors-list">
+                    <b>Starring:</b> {displayActors}
+                </div>
+                <div className="trailer-container">
+                    <VideoEmbed video={detail.youtube_trailer_key} />
+                </div>
             </div>
         </SiteModal>
     )

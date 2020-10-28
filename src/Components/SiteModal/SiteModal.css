@@ -9,7 +9,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5); 
-    z-index: 999; 
+    z-index: 900; 
 }
 
 .site-display-modal {
@@ -17,7 +17,7 @@
     background-color: white;
     border-radius: 0.25rem;
     width: 70%;
-    height: 80%;
+    height: 85%;
 }
 
 .site-modal-box {
@@ -31,13 +31,19 @@
 .site-modal-close-button{
     cursor: pointer;
     width: 3%;
-    height: 4%;
-    padding-top: 10px;
+    height: 10%;
+    padding-top: 15px;
     text-align: center;
 }
 
 .site-modal-content {
     width:95%;
+}
+
+.site-modal-title {
+    margin-top: 10px;
+    font-weight: 700;
+    /* border: 1px solid black; */
 }
 
 .site-displayed-content {
@@ -49,12 +55,13 @@
 .poster-container {
     width: 35%;
     text-align: center;
-    padding: 25px 0px;
+    padding: 45px 0px;
+    /* border: 1px solid black; */
 }
 
 .poster-image {
-    height: 360px;
-    width: 240px;
+    height: 420px;
+    width: 280px;
 }
 
 .rating-content {
@@ -63,10 +70,26 @@
 }
 
 .text-container {
-    width: 55%;
+    width: 65%;
     padding: 0px 25px;
+    /* border: 1px solid black; */
+}
+
+.site-modal-description{
+    margin-top: 20px;
+    padding: 5px 0px;
+    height: 110px;
+    width: 450px;
+    /* border: 1px solid black; */
 }
 
 .genre-button{
     margin: 2px;
+}
+
+.genre-buttons-container,
+.actors-list {
+    margin: 10px 0px;
+    /* border: 1px solid black; */
+    height: 40px;
 }

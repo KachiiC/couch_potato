@@ -2,3 +2,7 @@
     border: 1px black solid;
     padding: 25px 0px;
 }
+
+.content-title:hover {
+    cursor: pointer;
+}

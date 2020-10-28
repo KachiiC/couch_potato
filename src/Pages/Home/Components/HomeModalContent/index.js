@@ -1,0 +1,65 @@
+import React,{useState, useEffect} from 'react'
+// Data
+import apiKey from 'Data/ApiKey'
+import RapidURL from 'Data/RapidURL'
+// Components
+import SiteModal from 'Components/SiteModal'
+
+
+const HomeModalContent = (props) => {
+    
+    const [detail, setDetail] = useState([]);
+    const [itemPoster, setItemPoster] = useState("")
+
+    const itemId = props.selectedItem.itemId
+    const entertainmentType = props.selectedItem.entertainmentType
+
+    useEffect(() => {
+        fetch(`${RapidURL}=${itemId}&type=get-${entertainmentType}-details`, {
+        "method": "GET",
+        "headers": apiKey
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then((detailData) => {
+            console.log(detailData)
+            setDetail(detailData)
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    },[itemId, entertainmentType])
+
+    useEffect(() => {
+        fetch(`${RapidURL}=${itemId}&type=get-${entertainmentType}-images-by-imdb`, {
+        "method": "GET",
+        "headers": apiKey
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then((detailData) => {
+            console.log(detailData)
+            setItemPoster(detailData.poster)
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    },[itemId, entertainmentType])
+
+    return (
+        <SiteModal closeModal={() => props.setShowModal(false)}>
+            <div>
+                <h2>{detail.title}</h2>
+                <p>{detail.description}</p>
+                <p>Rating: {detail.imdb_rating}</p>
+                <img src={itemPoster} alt="item-poster" />
+            </div>
+        </SiteModal>
+    )
+}
+
+export default HomeModalContent

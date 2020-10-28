@@ -1,30 +1,25 @@
 import React,{useState, useEffect} from 'react'
+// Data
+import apiKey from 'Data/ApiKey';
 // CSS
 import './PopularList.css'
-// Components
-import SiteModal from '../../Components/SiteModal'
-import apiKey from './ApiHeader';
 
 const PopularList = (props) => {
-
-    const [showModal, setShowModal] = useState(false);
-    const [itemId, setItemId] = useState("")
-    const [itemPoster, setItemPoster] = useState("")
-    const [detail, setDetail] = useState([])
     const [list, setList] = useState([])
 
-    const get = props.get
+    const entertainmentType = props.entertainmentType
 
     useEffect(() => {
-        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-popular-${get}s`, {
+        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-popular-${entertainmentType}s`, {    
         "method": "GET",
         "headers": apiKey
     })
     .then(response => {
+        console.log(response)
         return response.json()
     })
     .then((data) => {
-        if (get === "movie") {
+        if (entertainmentType === "movie") {
             setList(data.movie_results)    
         } else {
             setList(data.tv_results)
@@ -33,12 +28,17 @@ const PopularList = (props) => {
     .catch(err => {
         console.log(err)
     })
-    },[get])
+    },[entertainmentType])
 
     const dislayShowsList = list.map((watch, index) => {
 
-        const repop = () =>  setItemId(watch.imdb_id)
-        const changeVisibility = () => setShowModal(true)
+        const itemToSet = {
+            "itemId": watch.imdb_id,
+            "entertainmentType": props.entertainmentType
+        }
+
+        const repop = () =>  props.setSelectedItem(itemToSet)
+        const changeVisibility = () => props.setShowModal(true)
 
         return (
             <div key={index}>
@@ -49,53 +49,8 @@ const PopularList = (props) => {
         )
     })
 
-    useEffect(() => {
-            fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?imdb=${itemId}&type=get-${get}-details`, {
-            "method": "GET",
-            "headers": apiKey
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then((detailData) => {
-            setDetail(detailData)
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    },[itemId, get])
-
-    useEffect(() => {
-        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?imdb=${itemId}&type=get-${get}-images-by-imdb`, {
-        "method": "GET",
-        "headers": apiKey
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then((detailData) => {
-            setItemPoster(detailData.poster)
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    },[itemId, get])
-
     return (
         <>
-        { showModal && (
-            <SiteModal closeModal={() => setShowModal(false)}>
-                <div>
-                    <h2>{detail.title}</h2>
-                    <p>{detail.description}</p>
-                    <p>Rating: {detail.imdb_rating}</p>
-                    <img src={itemPoster} alt="item-poster" />
-                </div>
-            </SiteModal>
-          )
-        }
         <div className="section-border">
             <h3>{props.title}</h3>
             <ol>

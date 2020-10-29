@@ -1,4 +1,4 @@
-const ListData = {
+const TVListData = {
     "tv_results": [
         {
             "title": "The Walking Dead: World Beyond",
@@ -107,4 +107,4 @@ const ListData = {
     "status_message": "Query was successful"
 }
 
-export default ListData
+export default TVListData

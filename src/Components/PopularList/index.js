@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react'
 // Data
 import apiKey from 'Data/ApiKey';
-import ListData from './ListData'
+// import TVListData from './TVListData'
+// import MovieListData from './MovieListData'
 // CSS
 import './PopularList.css'
 
@@ -9,10 +10,12 @@ const PopularList = (props) => {
 
     const [list, setList] = useState([])
 
+    const listType = props.listType
     const entertainmentType = props.entertainmentType
 
     useEffect(() => {
-        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-popular-${entertainmentType}s`, {    
+        // https://movies-tvshows-data-imdb.p.rapidapi.com/?page=1&type=get-trending-shows
+        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-${listType}-${entertainmentType}s`, {    
         "method": "GET",
         "headers": apiKey
     })
@@ -30,7 +33,7 @@ const PopularList = (props) => {
     .catch(err => {
         console.log(err)
     })
-    },[entertainmentType])
+    },[entertainmentType, listType])
 
     const dislayShowsList = list.map((watch, index) => {
 

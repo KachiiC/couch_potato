@@ -14,7 +14,6 @@ const PopularList = (props) => {
     const entertainmentType = props.entertainmentType
 
     useEffect(() => {
-        // https://movies-tvshows-data-imdb.p.rapidapi.com/?page=1&type=get-trending-shows
         fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-${listType}-${entertainmentType}s`, {    
         "method": "GET",
         "headers": apiKey
@@ -54,10 +53,12 @@ const PopularList = (props) => {
         )
     })
 
+    const listTitle = entertainmentType.charAt(0).toUpperCase() + entertainmentType.slice(1)
+
     return (
         <>
         <div className="section-border">
-            <h3 className="content-title">{props.title}</h3>
+            <h3 className="content-title">Popular {listTitle}s</h3>
             <ol>
                 {dislayShowsList}
             </ol>

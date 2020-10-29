@@ -26,7 +26,7 @@ const HomeModalContent = (props) => {
     const entertainmentType = props.selectedItem.entertainmentType 
 
     useEffect(() => {
-        fetch(`${RapidURL}=${itemId}&type=get-${entertainmentType}-details`, {
+        fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentType}-details`, {
         "method": "GET",
         "headers": apiKey
         })
@@ -45,7 +45,7 @@ const HomeModalContent = (props) => {
     const entertainmentPosterId = entertainmentType === "movie" ? "movies" : "show"
 
     useEffect(() => {
-        fetch(`${RapidURL}=${itemId}&type=get-${entertainmentPosterId}-images-by-imdb`, {
+        fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentPosterId}-images-by-imdb`, {
         "method": "GET",
         "headers": apiKey
         })

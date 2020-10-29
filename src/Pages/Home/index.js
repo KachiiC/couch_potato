@@ -15,14 +15,12 @@ const Home = () => {
     return (
         <div className="site-row">
             <div className="main-section">
-                <h1>Main Section</h1>
                 <PopularList 
-                entertainmentType="show" 
-                title="Trending Shows"
-                listType="trending"
-                setSelectedItem={setSelectedItem} 
-                setShowModal={setShowModal}
-            />
+                    entertainmentType="show" 
+                    listType="trending"
+                    setSelectedItem={setSelectedItem} 
+                    setShowModal={setShowModal}
+                />
             </div>
             {(showModal && 
                 <HomeModalContent 

@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react'
 // Data
 import apiKey from 'Data/ApiKey';
+import RapidURL from 'Data/RapidURL'
 // import TVListData from './TVListData'
 // import MovieListData from './MovieListData'
 // CSS
@@ -14,7 +15,7 @@ const PopularList = (props) => {
     const entertainmentType = props.entertainmentType
 
     useEffect(() => {
-        fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?year=2020&page=1&type=get-${listType}-${entertainmentType}s`, {    
+        fetch(`${RapidURL}?year=2020&page=1&type=get-${listType}-${entertainmentType}s`, {    
         "method": "GET",
         "headers": apiKey
     })
@@ -53,12 +54,13 @@ const PopularList = (props) => {
         )
     })
 
-    const listTitle = entertainmentType.charAt(0).toUpperCase() + entertainmentType.slice(1)
+    const listTypeHeading = listType.charAt(0).toUpperCase() + listType.slice(1)
+    const listContentHeading = entertainmentType.charAt(0).toUpperCase() + entertainmentType.slice(1)
 
     return (
         <>
         <div className="section-border">
-            <h3 className="content-title">Popular {listTitle}s</h3>
+            <h3 className="content-title">{listTypeHeading} {listContentHeading}s</h3>
             <ol>
                 {dislayShowsList}
             </ol>

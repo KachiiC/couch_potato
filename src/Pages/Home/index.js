@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 // Components
-import HomeModalContent from './Components/HomeModalContent';
+import HomeModalContent from 'Pages/Home/PageComponents/HomeModalContent';
 import SiteSidebar from 'Components/SiteSidebar';
 import PopularList from 'Components/PopularList'
 

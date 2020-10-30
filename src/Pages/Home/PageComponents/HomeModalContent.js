@@ -9,6 +9,7 @@ import RapidURL from 'Data/RapidURL'
 // Components
 import SiteModal from 'Components/SiteModal'
 import VideoEmbed from 'Components/VideoEmbedder'
+import Loading from 'Components/LoadingCircle'
 
 
 const HomeModalContent = (props) => {
@@ -21,47 +22,36 @@ const HomeModalContent = (props) => {
         }
     )
     const [itemPoster, setItemPoster] = useState("")
+    const [fetching, setFetching] = useState(true)
 
     const itemId = props.selectedItem.itemId
     const entertainmentType = props.selectedItem.entertainmentType 
-
-    useEffect(() => {
-        fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentType}-details`, {
-        "method": "GET",
-        "headers": apiKey
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then((detailData) => {
-            setDetail(detailData)
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    },[itemId, entertainmentType])
-
     const entertainmentPosterId = entertainmentType === "movie" ? "movies" : "show"
 
     useEffect(() => {
-        fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentPosterId}-images-by-imdb`, {
-        "method": "GET",
-        "headers": apiKey
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then((detailData) => {
-            setItemPoster(detailData.poster)
+        Promise.all([
+            fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentType}-details`, {
+                "method": "GET",
+                "headers": apiKey
+            }).then (response => response.json()),
+            fetch(`${RapidURL}?imdb=${itemId}&type=get-${entertainmentPosterId}-images-by-imdb`, {
+                "method": "GET",
+                "headers": apiKey
+            }).then (response => response.json())
+        ])
+        .then((contentData) => {
+            setDetail(contentData[0])
+            setItemPoster(contentData[1].poster)
+            setFetching(false)
         })
         .catch(err => {
             console.log(err);
         });
 
-    },[itemId, entertainmentPosterId])
+    },[entertainmentType,itemId, entertainmentPosterId])
 
     console.log(detail)
+    console.log(itemPoster)
 
     const genresList = detail.genres.slice(0, 4).map((genre, index) => (
           <button className="genre-button" key={index}>{genre}</button>
@@ -76,8 +66,8 @@ const HomeModalContent = (props) => {
 
     const displayActors = detail.stars.slice(0,2).join(", ") + " and " + detail.stars[3]
 
-    return (
-        <SiteModal closeModal={() => props.setShowModal(false)}>
+    const renderModalContent = (fetching)?(<Loading />):(
+        <>
             <div className="poster-container">
                 <img className="poster-image" src={itemPoster} alt="poster" />
                 <h4 className="rating-content">IMDB Rating: {detail.imdb_rating}</h4>
@@ -93,6 +83,13 @@ const HomeModalContent = (props) => {
                     <VideoEmbed video={detail.youtube_trailer_key} />
                 </div>
             </div>
+        </>
+
+    )
+
+    return (
+        <SiteModal closeModal={() => props.setShowModal(false)}>
+            {renderModalContent}
         </SiteModal>
     )
 }

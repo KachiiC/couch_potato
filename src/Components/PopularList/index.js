@@ -60,7 +60,7 @@ const PopularList = (props) => {
     return (
         <>
         <div className="section-border">
-            <h3 className="content-title">{listTypeHeading} {listContentHeading}s</h3>
+            <h3>{listTypeHeading} {listContentHeading}s</h3>
             <ol>
                 {dislayShowsList}
             </ol>

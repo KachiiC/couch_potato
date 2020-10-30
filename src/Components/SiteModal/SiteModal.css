@@ -50,6 +50,7 @@
     padding: 25px;
     display: flex;
     flex-wrap: wrap;
+    text-align: center;
 }
 
 .poster-container {

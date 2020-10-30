@@ -1,48 +1,48 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 // Data
-import TestPicturesData from './TestData'
+// import Loading from 'Components/Loading'
+import apiKey from 'Data/ApiKey';
+import RapidURL from 'Data/RapidURL'
 // CSS
 import './Test.css'
 // Components
-import SiteModal from '../../Components/SiteModal'
-
 
 const TestPage = () => {
 
-    const [showModal, setShowModal] = useState(false);
-    const [result, setResult] = useState([])
-  
-    const displayPictures = TestPicturesData.map((picture, index) => {
-  
-      const rename = () =>  setResult(picture) 
-      const changeVisibility = () => setShowModal(true)
-  
-      return (
-          <div className="gallery-item" key={index}>
-              <h1>{picture.name}</h1>
-              <img src={picture.url} alt={picture.name} onClick={() => {changeVisibility();rename()}} />
-          </div>
-      )
-    })
+    const [detail, setDetail] = useState({
+        "title": "",
+        "description": "", 
+        "genres": [""],
+        "stars":[""]
+        }
+    )
+    const [itemPoster, setItemPoster] = useState("")
 
+    const detailUrl = `${RapidURL}?imdb=tt2741602&type=get-show-images-by-imdb`
+    const imageUrl = `${RapidURL}?imdb=tt2741602&type=get-show-details`
+
+    useEffect(() => {
+        Promise.all([
+            fetch(detailUrl , {"method": "GET", "headers": apiKey})
+            .then (value => value.json()),
+            fetch(imageUrl, {"method": "GET", "headers": apiKey})
+            .then(value => value.json())
+        ])
+        .then((response) => {
+            setDetail(response[0])
+            setItemPoster(response[1])
+        })
+        .catch((err) => {
+            console.log(err)
+        }) 
+    }, [detailUrl, imageUrl])
+
+    console.log(detail)
+    console.log(itemPoster)
     
-  
     return (
-        <div className="site-row">
-          { showModal && (
-            <SiteModal closeModal={() => setShowModal(false)}>
-                <h2>{result.name}</h2>
-                <img src={result.url} alt={result.name} />
-            </SiteModal>
-          )}
-          <div className="main-container">
-            <h1>Fight Strategies</h1>
-            <div className="site-row">
-              {displayPictures}
-            </div>
-          </div>
-        </div>
-    );
+        <h1> Test </h1>
+    )
 
 }
 

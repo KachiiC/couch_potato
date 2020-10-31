@@ -1,6 +1,6 @@
 import React from 'react'
 // Components
-import PopularList from '../PopularList'
+import PopularList from 'Components/ContentList'
 
 const SiteSidebar = (props) => (
         <div className="side-bar">

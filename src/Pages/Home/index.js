@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 // Components
 import HomeModalContent from 'Pages/Home/PageComponents/HomeModalContent';
 import SiteSidebar from 'Components/SiteSidebar';
-import PopularList from 'Components/PopularList'
+import TestPage from 'Pages/Test/'
 
 const Home = () => {
 
@@ -14,14 +14,7 @@ const Home = () => {
 
     return (
         <div className="site-row">
-            <div className="main-section">
-                <PopularList 
-                    entertainmentType="show" 
-                    listType="trending"
-                    setSelectedItem={setSelectedItem} 
-                    setShowModal={setShowModal}
-                />
-            </div>
+            <TestPage />
             {(showModal && 
                 <HomeModalContent 
                     selectedItem={selectedItem} 

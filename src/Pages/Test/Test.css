@@ -3,3 +3,12 @@
     vertical-align: middle;
     border: 1px solid black;
 }
+
+.trending-pic {
+    width: 150px;
+    height: 225px;
+}
+
+.trending-title {
+    height: 40px;
+}
